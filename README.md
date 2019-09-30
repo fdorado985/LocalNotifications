@@ -17,3 +17,12 @@ Send reminders to your user's lock screen to show them information when your app
 | Screenshot 04 |
 | ------------- |
 | ![screenshot04.png](.screenshots/screenshot04.png) |
+
+### feature/challenge
+| Screenshot 05 (Alerts) |
+| ------------- |
+| ![screenshot05.png](.screenshots/screenshot05.png) |
+
+| Screenshot 06 (UNNotificationAction Reminder) | Screenshot 07 (Alert Reminder) |
+| ------------- | ------------- |
+| ![screenshot06.png](.screenshots/screenshot06.png) | ![screenshot07.png](.screenshots/screenshot07.png) |
