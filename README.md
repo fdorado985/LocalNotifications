@@ -8,3 +8,7 @@
 Send reminders to your user's lock screen to show them information when your app isn't running.
 
 ## Demo
+### feature/scheduling-notifications
+| Screenshot 01 | Screenshot 02 | Screenshot 03 |
+| ------------- | ------------- | ------------- |
+| ![screenshot01.png](.screenshots/screenshot01.png) | ![screenshot02.png](.screenshots/screenshot02.png) | ![screenshot03.png](.screenshots/screenshot03.png) |
