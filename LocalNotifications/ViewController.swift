@@ -35,6 +35,8 @@ class ViewController: UIViewController {
   }
 
   @objc func scheduleLocal() {
+    registerCategories() // it is the safest place
+
     let center = UNUserNotificationCenter.current() // the main center to work with notifications
     // center.removeAllPendingNotificationRequests() // this removes all pending notifications
 
@@ -50,15 +52,53 @@ class ViewController: UIViewController {
     var dateComponents = DateComponents()
     dateComponents.hour = 10 // give the hour
     dateComponents.minute = 30 // give the minutes
-    let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true) // trigger the notification to your calendar
+    //let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true) // trigger the notification to your calendar
 
     // faster test
-    //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
 
     // create your notification request - the notification needs an unique identifier
     let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
     // add it to your center
     center.add(request)
+  }
+
+  func registerCategories() {
+    let center = UNUserNotificationCenter.current()
+    center.delegate = self
+
+    let show = UNNotificationAction(identifier: "show", title: "Tell me more...", options: .foreground)
+    let category = UNNotificationCategory(identifier: "alarm", actions: [show], intentIdentifiers: [])
+
+    center.setNotificationCategories([category])
+  }
+}
+
+// MARK: - UNUserNotificationCenterDelegate
+
+extension ViewController: UNUserNotificationCenterDelegate {
+
+  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    // pull out the buried userInfo dictionary
+    let userInfo = response.notification.request.content.userInfo
+
+    if let customData = userInfo["customData"] as? String {
+      print("Custom data received: \(customData)")
+
+      switch response.actionIdentifier {
+      case UNNotificationDefaultActionIdentifier:
+        // the user swiped to unlock
+        print("Default identifier")
+      case "show":
+        // the user tapped our "show more info..." button
+        print("Show more information...")
+      default:
+        break
+      }
+    }
+
+    // you must call the completion handler when you're done
+    completionHandler()
   }
 }
 
